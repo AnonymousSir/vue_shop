@@ -1,12 +1,12 @@
 <template>
-  <div class="login_container">
-    <div class="login_box">
+  <div class='login_container'>
+    <div class='login_box'>
       <!-- 头像 -->
-      <div class="avatar_box">
-        <img src="../assets/logo.png" alt="">
+      <div class='avatar_box'>
+        <img src='../assets/logo.png'>
       </div>
       <!-- 登录表单 -->
-      <el-form ref='loginFromRef' :model='loginFrom' :rules='loginFromRules' label-width="0px" class='login_from'>
+      <el-form ref='loginFromRef' :model='loginFrom' :rules='loginFromRules' label-width='0px' class='login_from'>
         <el-form-item prop='username'>
           <el-input v-model='loginFrom.username' prefix-icon='el-icon-user'></el-input>
         </el-form-item>
@@ -14,11 +14,12 @@
           <el-input v-model='loginFrom.password' type='password' prefix-icon='el-icon-lock'></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type='primary' @click="login">登录</el-button>
+          <el-button type='primary' @click='login'>登录</el-button>
           <el-button type='info' @click='resetLoginFrom'>重置</el-button>
         </el-form-item>
       </el-form>
     </div>
+    <a href='/home'>home</a>
   </div>
 </template>
 
@@ -65,7 +66,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang='less' scoped>
 .login_container {
   background-color: skyblue;
   height: 100%;
