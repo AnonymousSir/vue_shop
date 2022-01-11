@@ -8,7 +8,7 @@
     <el-card>
       <el-row>
         <el-col>
-          <el-button type='primary'>添加角色</el-button>
+          <el-button type='primary' @click='addRoleDialogVisible = true'>添加角色</el-button>
         </el-col>
       </el-row>
       <!-- 角色列表 -->
@@ -51,7 +51,7 @@
       </el-table>
     </el-card>
 
-    <!-- 分配权限的对话框 -->
+    <!-- 分配权限对话框 -->
     <el-dialog
       title="分配权限"
       :visible.sync="setRightsDialogVisible"
@@ -68,6 +68,26 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="setRightsDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="allotRights">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <!-- 添加角色对话框 -->
+    <el-dialog
+      title="添加角色"
+      :visible.sync="addRoleDialogVisible"
+      @close='addRoleDialogClosed'
+      width="50%">
+      <el-form :model="addRoleForm" :rules="addRoleRules" ref="addRoleRef" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="角色名称" prop="roleName">
+          <el-input v-model="addRoleForm.roleName"></el-input>
+        </el-form-item>
+        <el-form-item label="角色描述" prop="roleDesc">
+          <el-input v-model="addRoleForm.roleDesc"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addRoleDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addRole">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -89,7 +109,22 @@ export default {
       },
       // tree默认勾选的节点id值
       defKeys: [],
-      roleId: ''
+      roleId: '',
+      // 添加角色对话框
+      addRoleDialogVisible: false,
+      addRoleForm: {
+        roleName: '',
+        roleDesc: ''
+      },
+      // 添加角色表单验证规则
+      addRoleRules: {
+        roleName: [
+          { required: true, message: '请输入角色名称', trigger: 'blur' }
+        ],
+        roleDesc: [
+          { required: true, message: '请输入角色描述', trigger: 'blur' }
+        ]
+      }
     }
   },
   created () {
@@ -157,6 +192,21 @@ export default {
       this.$message.success('分配权限成功!')
       this.getRolesList()
       this.setRightsDialogVisible = false
+    },
+    // 添加角色
+    addRole () {
+      this.$refs.addRoleRef.validate(async (valid) => {
+        if (!valid) return this.$message.error('请输入角色信息')
+        const { data: res } = await this.$axios.post('roles', this.addRoleForm)
+        if (res.meta.status !== 201) return this.$message.error('添加角色失败!')
+        this.getRolesList()
+        this.$message.success('创建成功')
+        this.addRoleDialogVisible = false
+      })
+    },
+    // 关闭添加角色对话框
+    addRoleDialogClosed () {
+      this.$refs.addRoleRef.resetFields()
     }
   }
 }
