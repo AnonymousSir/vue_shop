@@ -13,13 +13,12 @@
         <el-form-item prop='password'>
           <el-input v-model='loginFrom.password' type='password' prefix-icon='el-icon-lock'></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item class='btns'>
           <el-button type='primary' @click='login'>登录</el-button>
           <el-button type='info' @click='resetLoginFrom'>重置</el-button>
         </el-form-item>
       </el-form>
     </div>
-    <a href='/home'>home</a>
   </div>
 </template>
 
@@ -105,5 +104,8 @@ export default {
   bottom: 0;
   padding: 0 20px;
   box-sizing: border-box;
+}
+.btns {
+  text-align: center;
 }
 </style>
