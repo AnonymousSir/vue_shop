@@ -2,13 +2,13 @@ html, body, #app {
   height: 100%;
   margin: 0;
   padding: 0;
+  min-width: 1366px;
 }
 
 .el-breadcrumb {
   margin-right: 15px;
   font-size: 12px;
 }
-/* user start*/
 .el-card {
   box-shadow: 0 1px 1p rgba(0, 0, 0, 0.15) !important;
 }
@@ -25,4 +25,8 @@ html, body, #app {
 .el-pagination {
   margin-top: 15px;
 }
-/* user end */
+
+.vcenter {
+  display: flex;
+  align-items: center;
+}

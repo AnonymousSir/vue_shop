@@ -24,7 +24,11 @@ import {
   Switch,
   Tooltip,
   Pagination,
-  Dialog
+  Dialog,
+  Tag,
+  Tree,
+  Select,
+  Option
 } from 'element-ui'
 
 const elements = [
@@ -50,7 +54,11 @@ const elements = [
   Switch,
   Tooltip,
   Pagination,
-  Dialog
+  Dialog,
+  Tag,
+  Tree,
+  Select,
+  Option
 ]
 
 Vue.prototype.$message = Message
