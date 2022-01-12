@@ -35,9 +35,9 @@
           <el-tag size='mini' type='warning' v-else>三级</el-tag>
         </template>
         <!-- 操作 -->
-        <template slot='opt'>
-          <el-button size='mini' type='primary' class='el-icon-edit'>编辑</el-button>
-          <el-button size='mini' type='danger' class='el-icon-detele'>删除</el-button>
+        <template slot='opt' slot-scope='scope'>
+          <el-button @click='shwoEditCateDialog(scope.row)' size='mini' type='primary' class='el-icon-edit'>编辑</el-button>
+          <el-button @click='deleteCate(scope.row.cat_id)' size='mini' type='danger' class='el-icon-detele'>删除</el-button>
         </template>
       </tree-table>
       <!-- 分页 -->
@@ -78,6 +78,26 @@
         <span slot="footer" class="dialog-footer">
           <el-button @click="addCateDialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="addCate">确 定</el-button>
+        </span>
+      </el-dialog>
+      <!-- 编辑dialog -->
+      <el-dialog
+        title="编辑"
+        :visible.sync="editCateDialogVisible"
+        @close='$refs.editCateRef.resetFields()'
+        width="50%">
+        <el-form
+          :model="editCateForm"
+          :rules="addCateRules"
+          ref="editCateRef"
+          label-width="100px">
+          <el-form-item label="分类名称" prop="cat_name">
+            <el-input v-model="editCateForm.cat_name"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="editCateDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="editCate">确 定</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -146,7 +166,16 @@ export default {
         label: 'cat_name',
         children: 'children'
       },
-      selectedKeys: []
+      selectedKeys: [],
+      // 编辑
+      editCateDialogVisible: false,
+      editCateForm: {
+        cat_name: ''
+      },
+      editCateScope: {},
+      // 删除
+      deleteCateDialogVisible: false,
+      deleteCateId: {}
     }
   },
   created () {
@@ -210,6 +239,41 @@ export default {
       this.addCateForm.cat_pid = 0
       this.addCateForm.cat_level = 0
       this.addCateDialogVisible = false
+    },
+    // 编辑dialog
+    shwoEditCateDialog (scope) {
+      this.editCateForm.cat_name = scope.cat_name
+      this.editCateScope = scope
+      this.editCateDialogVisible = true
+    },
+    editCate () {
+      console.log(this.editCateScope.cat_id)
+      this.$refs.editCateRef.validate(async (valid) => {
+        if (!valid) return false
+        const { data: res } = await this.$axios.put(`categories/${this.editCateScope.cat_id}`, { cat_name: this.editCateForm.cat_name })
+        console.log(res)
+        if (res.meta.status !== 200) return this.$message.error('修改分类名称失败!')
+        this.$message.success('修改成功!')
+        this.editCateDialogVisible = false
+        this.getCateList()
+      })
+    },
+    // 删除分类
+    deleteCate (id) {
+      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        const { data: res } = await this.$axios.delete(`categories/${id}`)
+        if (res.meta.status !== 200) {
+          return this.$message.error('删除失败!')
+        }
+        this.$message.success('删除成功!')
+        this.getCateList()
+      }).catch(() => {
+        this.$message.info('已取消删除')
+      })
     }
   }
 }
