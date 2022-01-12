@@ -30,3 +30,28 @@ html, body, #app {
   display: flex;
   align-items: center;
 }
+
+.el-cascader-panel {
+  height: 400px;
+}
+
+.el-cascader-menu__wrap, .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+
+/* 解决cascader选择父节点时只能通过点击圆圈 */
+/* 将圆圈透明覆盖到文字上 */
+.el-cascader-panel .el-radio{
+  position:absolute;
+  z-index:10;
+  padding:0 10px;
+  width:132px;
+  height:34px;
+  line-height:34px;
+ }
+ .el-cascader-panel .el-radio__input{
+  visibility:hidden;
+ }
+ .el-cascader-panel .el-input-node__postfix{
+  top:10px;
+ }

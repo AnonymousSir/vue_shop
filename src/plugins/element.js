@@ -28,7 +28,8 @@ import {
   Tag,
   Tree,
   Select,
-  Option
+  Option,
+  Cascader
 } from 'element-ui'
 
 const elements = [
@@ -58,7 +59,8 @@ const elements = [
   Tag,
   Tree,
   Select,
-  Option
+  Option,
+  Cascader
 ]
 
 Vue.prototype.$message = Message
