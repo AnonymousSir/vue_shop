@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-breadcrumb separator="/">
+    <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>商品管理</el-breadcrumb-item>
       <el-breadcrumb-item>参数列表</el-breadcrumb-item>
@@ -221,7 +221,6 @@ export default {
       const { data: res } = await this.$axios.get(`categories/${this.cateId}/attributes`, {
         params: { sel: this.tabsName }
       })
-      console.log(res)
       if (res.meta.status !== 200) return this.$message.error('获取参数列表失败!')
       res.data.forEach(item => {
         item.attr_vals = item.attr_vals ? item.attr_vals.split(',') : []
