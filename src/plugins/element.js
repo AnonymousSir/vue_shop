@@ -37,7 +37,9 @@ import {
   Step,
   CheckboxGroup,
   Checkbox,
-  Upload
+  Upload,
+  Timeline,
+  TimelineItem
 } from 'element-ui'
 
 const elements = [
@@ -76,7 +78,9 @@ const elements = [
   Step,
   CheckboxGroup,
   Checkbox,
-  Upload
+  Upload,
+  Timeline,
+  TimelineItem
 ]
 
 Vue.prototype.$message = Message
