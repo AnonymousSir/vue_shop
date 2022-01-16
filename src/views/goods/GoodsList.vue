@@ -8,12 +8,12 @@
     <el-card>
       <el-row :gutter='20'>
         <el-col :span='8'>
-          <el-input placeholder="请输入内容">
-            <el-button slot='append' icon='el-icon-search'></el-button>
+          <el-input v-model='queryInfo.query' @clear='getGoodsList' clearable placeholder="请输入内容">
+            <el-button @click='getGoodsList' slot='append' icon='el-icon-search'></el-button>
           </el-input>
         </el-col>
         <el-col :span='4'>
-          <el-button type='primary'>添加商品</el-button>
+          <el-button type='primary' @click="goAddPage">添加商品</el-button>
         </el-col>
       </el-row>
       <el-table :data='goodsList' border stripe>
@@ -27,9 +27,9 @@
           </template>
         </el-table-column>
         <el-table-column label='操作' width='130px'>
-          <template >
+          <template slot-scope="scope">
             <el-button size='mini' type='primary' icon='el-icon-edit'></el-button>
-            <el-button size='mini' type='danger' icon='el-icon-delete'></el-button>
+            <el-button @click='deleteById(scope.row.goods_id)' size='mini' type='danger' icon='el-icon-delete'></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -70,13 +70,34 @@ export default {
       this.goodsList = res.data.goods
       this.total = res.data.total
     },
+    // 分页页数变化
     handleSizeChange (pageSize) {
       this.queryInfo.pagesize = pageSize
       this.getGoodsList()
     },
+    // 分页每页显示数量改变
     handleCurrentChange (pageNum) {
       this.queryInfo.pagenum = pageNum
       this.getGoodsList()
+    },
+    // 删除
+    deleteById (id) {
+      this.$confirm('此操作将永久删除该商品, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        const { data: res } = await this.$axios.delete(`goods/${id}`)
+        if (res.meta.status !== 200) return this.$message.error('删除失败!')
+        this.getGoodsList()
+        this.$message.success('删除成功!')
+      }).catch(() => {
+        this.$message.info('已取消删除')
+      })
+    },
+    // 跳转到添加商品页面
+    goAddPage () {
+      this.$router.push('/goods/add')
     }
   }
 }
