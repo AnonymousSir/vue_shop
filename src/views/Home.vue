@@ -3,7 +3,7 @@
       <!-- 头部 -->
       <el-header>
         <div>
-          <img src="../assets/logo.png" alt="">
+          <img src="../assets/logo.jpeg" alt="" class='logo'>
           <span>电商后台管理系统</span>
         </div>
         <el-button type='info' @click='logout'>退出</el-button>
@@ -36,7 +36,6 @@
                   <template slot="title">
                     <i class="el-icon-menu"></i>
                     <span>{{subItem.authName}}</span>
-                    <!-- <span>{{subItem.authName}}</span> -->
                   </template>
                 </el-menu-item>
               </el-submenu>
@@ -109,8 +108,9 @@ export default {
   div {
     display: flex;
     align-items: center;
-    img {
+    .logo {
       width: 45px;
+      border-radius: 45px;
     }
     span {
       margin-left: 15px;
