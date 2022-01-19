@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../components/Login.vue'
-import Home from '../views/Home.vue'
-import Welcome from '../views/Welcome.vue'
-import Users from '../views/users/Users.vue'
-import Rights from '../views/power/Rights.vue'
-import Roles from '../views/power/Roles.vue'
-import Categories from '../views/goods/Categories.vue'
-import Params from '../views/goods/Params.vue'
-import GoodsList from '../views/goods/GoodsList.vue'
-import Add from '../views/goods/Add.vue'
-import Order from '../views/order/Order.vue'
-import Report from '../views/report/Report.vue'
+
+const Login = () => import(/* webpackChunckName: "group-login" */ '@/views/Login.vue')
+const Home = () => import(/* webpackChunckName: "group-home" */ '@/views/Home.vue')
+const Users = () => import(/* webpackChunckName: "group-users" */ '@/views/users/Users.vue')
+const Rights = () => import(/* webpackChunckName: "group-power" */ '@/views/power/Rights.vue')
+const Roles = () => import(/* webpackChunckName: "group-power" */ '@/views/power/Roles.vue')
+const Categories = () => import(/* webpackChunckName: "group-cate" */ '@/views/goods/Categories.vue')
+const Params = () => import(/* webpackChunckName: "group-cate" */ '@/views/goods/Params.vue')
+const GoodsList = () => import(/* webpackChunckName: "group-goods" */ '@/views/goods/GoodsList.vue')
+const Add = () => import(/* webpackChunckName: "group-goods" */ '@/views/goods/Add.vue')
+const Order = () => import(/* webpackChunckName: "group-order" */ '@/views/order/Order.vue')
+const Report = () => import(/* webpackChunckName: "group-report" */ '@/views/report/Report.vue')
 
 Vue.use(VueRouter)
 
@@ -22,9 +22,8 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
-    redirect: '/welcome',
+    redirect: '/users',
     children: [
-      { path: '/welcome', name: 'Welcome', component: Welcome },
       { path: '/users', name: 'Users', component: Users },
       { path: '/rights', name: 'Rights', component: Rights },
       { path: '/roles', name: 'Roles', component: Roles },
