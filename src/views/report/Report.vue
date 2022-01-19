@@ -7,7 +7,7 @@
     </el-breadcrumb>
 
     <el-card>
-      <div id="main" style="width: 750px; height: 400px;"></div>
+      <div id="main" style="width: 75 0px; height: 400px;"></div>
     </el-card>
   </div>
 </template>

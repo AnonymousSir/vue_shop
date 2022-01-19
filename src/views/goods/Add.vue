@@ -260,7 +260,6 @@ export default {
             attr_value: item.attr_vals.join(',')
           }
           this.addForm.attrs.push(newInfo)
-          console.log(newInfo)
         })
         // 处理静态属性
         this.onlyTableData.forEach(item => {

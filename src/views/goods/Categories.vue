@@ -228,7 +228,6 @@ export default {
         if (res.meta.status !== 201) return this.$message.error('添加分类失败')
         this.$message.success('添加分类成功')
         this.getCateList()
-        console.log(this.addCateForm.cat_pid)
         this.addCateDialogVisible = false
       })
     },
@@ -247,11 +246,9 @@ export default {
       this.editCateDialogVisible = true
     },
     editCate () {
-      console.log(this.editCateScope.cat_id)
       this.$refs.editCateRef.validate(async (valid) => {
         if (!valid) return false
         const { data: res } = await this.$axios.put(`categories/${this.editCateScope.cat_id}`, { cat_name: this.editCateForm.cat_name })
-        console.log(res)
         if (res.meta.status !== 200) return this.$message.error('修改分类名称失败!')
         this.$message.success('修改成功!')
         this.editCateDialogVisible = false
