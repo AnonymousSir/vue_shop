@@ -14,7 +14,7 @@ import NProgress from 'nprogress'
 
 // axios
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:8888/api/private/v1/'
+axios.defaults.baseURL = 'http://121.5.238.221:8081/api/private/v1/'
 axios.interceptors.request.use((config) => {
   // 展示进度条
   NProgress.start()
